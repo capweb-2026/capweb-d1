@@ -74,7 +74,20 @@ function effacerHistorique() {
   }
 }
 
-boutonEffacer?.addEventListener("click", effacerHistorique);
+function demanderConfirmationAvantEffacement() {
+  if (historique.length > 0) {
+    const confirmation = confirm(
+      "Êtes-vous sûr de vouloir effacer l'historique ? Cette action est irréversible.",
+    );
+    if (confirmation) {
+      effacerHistorique();
+    }
+  } else {
+    console.log("Aucun historique à supprimer");
+  }
+}
+
+boutonEffacer?.addEventListener("click", demanderConfirmationAvantEffacement);
 
 // ...existing code...
 
