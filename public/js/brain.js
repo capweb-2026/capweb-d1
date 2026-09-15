@@ -29,4 +29,8 @@ export function replyTo(message) {
   if (texte === "test") {
     return "Ceci est un message de test";
   }
+
+  else {
+    return "Je suis désolé, je n'ai pas compris votre message. Pouvez-vous reformuler ?";
+  }
 }
