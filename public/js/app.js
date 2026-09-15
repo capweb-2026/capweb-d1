@@ -11,10 +11,14 @@ const boutonEffacer = document.querySelector("#effacer");
 
 let historique = [];
 
-const donneesHistorique = localStorage.setItem(
-  "capweb.historique",
-  JSON.stringify(historique),
-);
+try {
+  const donneesHistorique = localStorage.getItem("capweb.historique");
+  if (donneesHistorique) historique = JSON.parse(donneesHistorique);
+} catch (error) {
+  console.error("Erreur lors de l'analyse du JSON :", error);
+}
+
+renderMessages(historique, liste);
 
 // J1 : interface seule, on bloque l’envoi et on l’explique.
 // ...existing code...
@@ -44,18 +48,7 @@ formulaire?.addEventListener("submit", (event) => {
     });
   }
 
-  try {
-    if (donneesHistorique) {
-      historique = JSON.parse(donneesHistorique);
-      console.log(
-        "Historique chargé depuis le stockage local :",
-        donneesHistorique,
-      );
-    }
-    console.log(historique);
-  } catch (error) {
-    console.error("Erreur lors de l'analyse du JSON :", error);
-  }
+  localStorage.setItem("capweb.historique", JSON.stringify(historique));
 
   renderMessages(historique, liste);
 
