@@ -2,7 +2,7 @@
 
 ## Le projet
 
-CapNum est un chatbot en JavaScript natif, sans framework, spécialisé dans l'orientation des métiers du numérique. Il répond avec un cerveau à règles et, à partir de mercredi, avec une IA appelée par le serveur.
+Cap'Num est un chatbot en JavaScript natif, sans framework, spécialisé dans l'orientation des métiers du numérique. Il répond avec un cerveau à règles et, à partir de mercredi, avec une IA appelée par le serveur.
 
 Fichiers principaux :
 
