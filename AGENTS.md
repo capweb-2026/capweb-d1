@@ -1,10 +1,8 @@
 # AGENTS.md — consignes pour l'agent
 
-> Modèle à copier à la racine de votre dépôt, puis à adapter. Remplacez chaque passage en italique. Ce fichier s'adresse à l'agent : phrases courtes, impératives, vérifiables.
-
 ## Le projet
 
-*Nom de l'assistant* est un chatbot en JavaScript natif, sans framework, spécialisé dans *votre thème*. Il répond avec un cerveau à règles et, à partir de mercredi, avec une IA appelée par le serveur.
+CapNum est un chatbot en JavaScript natif, sans framework, spécialisé dans l'orientation des métiers du numérique. Il répond avec un cerveau à règles et, à partir de mercredi, avec une IA appelée par le serveur.
 
 Fichiers principaux :
 
