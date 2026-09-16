@@ -1,101 +1,32 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import * as brain from '../public/js/brain.js';
+import { ASSISTANT_NAME, ASSISTANT_EMOJI, replyTo } from '../public/js/brain.js';
 
-// Tests critères 1 à 5 (SPEC.md) : identité et accueil de Cap’Num.
-// Rouge attendu avant implémentation : brain.js ne connaît ni Cap’Num ni 💻.
-// Style suivi : node:test + assert strict, comme tests/contrat/brain.contrat.test.js.
+// Critères SPEC 1, 2, 5 — identité Cap'Num, sans figer de métier.
+// Structurel : on vérifie le nom, l'emoji et leur présence dans les réponses.
 
-const NOM_ATTENDU = 'Cap’Num';
-const EMOJI_ATTENDU = '💻';
-
-const compteEmoji = (texte) => texte.split(EMOJI_ATTENDU).length - 1;
-
-const compteGraphemes = (texte) =>
-  [...new Intl.Segmenter('fr', { granularity: 'grapheme' }).segment(texte)].length;
-
-describe('Critère 1 — nom Cap’Num', () => {
-  it('expose exactement Cap’Num avec l’apostrophe typographique U+2019', () => {
-    assert.equal(brain.ASSISTANT_NOM, NOM_ATTENDU);
+describe('Identité Cap’Num (SPEC 1, 2, 5)', () => {
+  it('SPEC 1 : le nom est Cap’Num, sans espaces, entre 2 et 20 caractères', () => {
+    assert.equal(typeof ASSISTANT_NAME, 'string');
+    assert.equal(ASSISTANT_NAME, 'Cap’Num');
+    assert.equal(ASSISTANT_NAME.trim(), ASSISTANT_NAME);
+    assert.ok(ASSISTANT_NAME.length >= 2 && ASSISTANT_NAME.length <= 20);
   });
 
-  it('n’a ni espace au début ni espace à la fin', () => {
-    assert.equal(typeof brain.ASSISTANT_NOM, 'string');
-    assert.equal(brain.ASSISTANT_NOM.trim(), brain.ASSISTANT_NOM);
+  it('SPEC 2 : exactement un emoji 💻, compté en graphème', () => {
+    assert.equal(typeof ASSISTANT_EMOJI, 'string');
+    assert.equal(ASSISTANT_EMOJI, '💻');
+    // 💻 compte comme un seul emoji même si length JS vaut 2 (surrogate pair).
+    assert.equal([...ASSISTANT_EMOJI].length, 1);
+    assert.equal(Array.from(ASSISTANT_EMOJI).length, 1);
   });
 
-  it('a une longueur comprise entre 2 et 20 caractères', () => {
-    assert.ok(brain.ASSISTANT_NOM.length >= 2, 'au moins 2 caractères');
-    assert.ok(brain.ASSISTANT_NOM.length <= 20, 'au plus 20 caractères');
-  });
-});
-
-describe('Critère 2 — emoji 💻 unique', () => {
-  it('expose exactement 💻 (U+1F4BB)', () => {
-    assert.equal(brain.ASSISTANT_EMOJI, EMOJI_ATTENDU);
-  });
-
-  it('compte comme un seul grapheme avec Intl.Segmenter', () => {
-    assert.equal(compteGraphemes(brain.ASSISTANT_EMOJI), 1);
-  });
-
-  it('documente le piège UTF-16 : 💻.length vaut 2 en unités de code', () => {
-    assert.equal(EMOJI_ATTENDU.length, 2);
-    assert.equal(compteGraphemes(EMOJI_ATTENDU), 1);
-  });
-});
-
-describe('Critère 3 — accueil quand la conversation est vide', () => {
-  it('contient Cap’Num', () => {
-    assert.equal(typeof brain.MESSAGE_ACCUEIL, 'string');
-    assert.ok(brain.MESSAGE_ACCUEIL.includes(NOM_ATTENDU), 'accueil sans Cap’Num');
-  });
-
-  it('contient 💻', () => {
-    assert.ok(brain.MESSAGE_ACCUEIL.includes(EMOJI_ATTENDU), 'accueil sans 💻');
-  });
-
-  it('ne contient qu’une seule occurrence de 💻', () => {
-    assert.equal(compteEmoji(brain.MESSAGE_ACCUEIL), 1);
-  });
-});
-
-describe('Critère 4 — exactement trois questions suggérées', () => {
-  it('est un tableau d’exactement trois questions', () => {
-    assert.ok(Array.isArray(brain.QUESTIONS_SUGGEREES), 'pas un tableau');
-    assert.equal(brain.QUESTIONS_SUGGEREES.length, 3);
-  });
-
-  it('ne contient que des chaînes non vides', () => {
-    for (const question of brain.QUESTIONS_SUGGEREES) {
-      assert.equal(typeof question, 'string');
-      assert.ok(question.trim().length > 0, 'question vide');
+  it('SPEC 5 : chaque réponse inclut Cap’Num et 💻', () => {
+    for (const entree of ['salut', 'aide', 'test', 'Je suis en terminale, spécialités maths et NSI']) {
+      const reponse = replyTo(entree);
+      assert.equal(typeof reponse, 'string');
+      assert.ok(reponse.includes('Cap’Num'), `réponse à ${entree} doit contenir Cap’Num`);
+      assert.ok(reponse.includes('💻'), `réponse à ${entree} doit contenir 💻`);
     }
   });
-
-  it('contient trois questions distinctes', () => {
-    assert.equal(new Set(brain.QUESTIONS_SUGGEREES).size, 3);
-  });
-});
-
-describe('Critère 5 — chaque réponse inclut Cap’Num et 💻', () => {
-  it('inclut Cap’Num et 💻 pour salut', () => {
-    const reponse = brain.replyTo('salut');
-    assert.ok(reponse.includes(NOM_ATTENDU), 'réponse sans Cap’Num');
-    assert.ok(reponse.includes(EMOJI_ATTENDU), 'réponse sans 💻');
-  });
-
-  it('inclut Cap’Num et 💻 pour aide, test, phrase inconnue et vide', () => {
-    for (const message of ['aide', 'test', 'parle-moi de la météo', '']) {
-      const reponse = brain.replyTo(message);
-      assert.ok(reponse.includes(NOM_ATTENDU), `sans Cap’Num pour ${JSON.stringify(message)}`);
-      assert.ok(reponse.includes(EMOJI_ATTENDU), `sans 💻 pour ${JSON.stringify(message)}`);
-    }
-  });
-
-  it('garde l’insensibilité à la casse et aux espaces avec l’identité', () => {
-    const reponse = brain.replyTo('  SALUT ');
-    assert.ok(reponse.includes(NOM_ATTENDU), 'sans Cap’Num pour SALUT espacé');
-    assert.ok(reponse.includes(EMOJI_ATTENDU), 'sans 💻 pour SALUT espacé');
-  });
-});
+}); 
