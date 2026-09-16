@@ -40,3 +40,7 @@ Chaque pull request passe par : **verifier** (les mêmes contrôles que `npm run
 - [`CARTE-DEFENSES.md`](CARTE-DEFENSES.md) : chaque connerie, sa barrière, sa preuve.
 - `SPEC.md` et `AGENTS.md` : ajoutés au checkpoint CP2.
 - `tests/contrat/` et `browser/contrat.spec.js` : le contrat fourni par le formateur. On ne les modifie pas.
+
+## Adresse de production
+
+https://capweb-d1.vercel.app/
