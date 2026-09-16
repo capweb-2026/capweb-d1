@@ -1,4 +1,4 @@
-# SPEC.md — *nom de la fonctionnalité*
+# SPEC.md — Identité et orientation de Cap'Num
 
 ## Objectif
 
