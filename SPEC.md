@@ -1,37 +1,36 @@
-# SPEC.md — Identité et orientation de Cap'Num
+# SPEC.md — Identité et orientation de Cap’Num
 
 ## Objectif
 
-l'assistant propose des solutions de metiers du numerique par rapport au parcours scolaires 
-## Critères d'acceptation
+L’assistant propose des métiers du numérique en fonction du parcours scolaire de l’utilisateur.
 
-Rédigez chaque critère sous la forme « Quand …, le système … ». Numérotez-les : les tests et les PR y feront référence.
+## Critères d’acceptation
 
+1. **Quand l’identité de l’assistant est affichée, le système utilise le nom `Cap’Num`**, sans espaces au début ni à la fin, avec une longueur comprise entre 2 et 20 caractères.
 
-1. **Quand l’identité de l’assistant est affichée, le système utilise le nom « Cap’Num »**, sans espaces au début ni à la fin, avec une longueur comprise entre 2 et 20 caractères.
+2. **Quand l’identité de l’assistant est affichée, le système utilise exactement un emoji `💻`**, qui compte comme un seul emoji même si JavaScript peut compter plusieurs unités de longueur.
 
-2. **Quand l’identité de l’assistant est affichée, le système utilise exactement un emoji**, par exemple `💻`.
-
-3. **Quand la conversation est vide, le système affiche un message d’accueil** contenant le nom `Cap’Num` et l’emoji `💻`.
+3. **Quand la conversation est vide, le système affiche un message d’accueil** contenant `Cap’Num` et `💻`.
 
 4. **Quand la conversation est vide, le système affiche exactement trois questions suggérées** sur les métiers du numérique.
 
-5. **Quand l’utilisateur indique son parcours scolaire, le système propose au moins trois métiers du numérique** adaptés à ce parcours.
+5. **Quand l’assistant répond à une question, le système inclut `Cap’Num` et `💻` dans la réponse.**
 
-6. **Quand un métier est proposé, le système affiche son nom, une courte description et le lien avec le parcours scolaire** de l’utilisateur.
+6. **Quand les nouvelles fonctionnalités sont exécutées, le système conserve tous les tests du contrat CP1 au vert.**
 
-7. **Quand l’utilisateur clique sur une question suggérée, le système place cette question dans le champ de saisie** sans envoyer automatiquement le message.
+7. **Quand l’utilisateur indique un parcours scolaire suffisamment détaillé, le système propose au moins trois métiers du numérique** en expliquant le lien avec ce parcours.
 
-8. **Quand l’utilisateur demande une orientation, la réponse rappelle que les propositions sont indicatives** et qu’elles ne remplacent pas l’avis d’un professionnel de l’orientation.
+8. **Quand un métier est proposé, le système affiche son nom, une courte description et le lien avec le parcours scolaire** de l’utilisateur.
 
-9. **Quand le parcours scolaire est insuffisant pour proposer une réponse personnalisée, le système demande une précision** au lieu d’inventer le parcours de l’utilisateur.
+9. **Quand l’utilisateur clique sur une question suggérée, le système place cette question dans le champ de saisie** sans envoyer automatiquement le message.
 
-10. **Quand l’assistant répond à une question, sa réponse contient son nom et son emoji**, par exemple `Cap’Num 💻`.
+10. **Quand l’utilisateur demande une orientation, le système rappelle que les propositions sont indicatives** et qu’elles ne remplacent pas l’avis d’un professionnel de l’orientation.
 
-11. **Quand l’utilisateur envoie un message vide ou composé uniquement d’espaces, le système affiche une erreur** et ne crée aucun message dans la conversation.
+11. **Quand le parcours scolaire est insuffisant pour proposer une réponse personnalisée, le système demande une précision** au lieu d’inventer le parcours de l’utilisateur.
 
-12. **Quand le système est exécuté, tous les tests du contrat CP1 restent verts.**
+12. **Quand l’utilisateur envoie un message vide ou composé uniquement d’espaces, le système affiche une erreur** et ne crée aucun message dans la conversation.
 
+13. **Quand le système est exécuté, le système ne collecte aucune donnée personnelle inutile** et ne propose aucune offre d’emploi.
 
 ## Hors périmètre
 
@@ -45,7 +44,7 @@ Rédigez chaque critère sous la forme « Quand …, le système … ». Numéro
 
 ### Identité
 
-L’assistant s’appelle `Cap’Num` et utilise l’emoji `💻`.
+L’assistant s’appelle `Cap’Num` et utilise exactement l’emoji `💻`.
 
 ### Fonction `validateMessage`
 
@@ -67,6 +66,7 @@ L’assistant s’appelle `Cap’Num` et utilise l’emoji `💻`.
 - Message d’accueil : contient le nom `Cap’Num`
 - Questions suggérées : un tableau contenant exactement trois questions
 - Chaque question suggérée concerne l’orientation vers un métier du numérique.
+- Un parcours scolaire complet contient au minimum le niveau scolaire et les matières étudiées.
 
 ### Affichage
 
