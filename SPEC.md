@@ -1,7 +1,5 @@
 # SPEC.md — *nom de la fonctionnalité*
 
-> Modèle à copier à la racine de votre dépôt. Une spec dit **ce que** le système doit faire, pas comment. Chaque critère doit pouvoir être vérifié par un test automatique ou par une démo de 30 secondes. Un exemple complet se trouve en fin de fichier.
-
 ## Objectif
 
 l'assistant propose des solutions de metiers du numerique par rapport au parcours scolaires 
