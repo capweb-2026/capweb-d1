@@ -23,12 +23,12 @@ export function validateMessage(raw) {
   }
   const value = raw.trim();
   if (value === "") {
-    return { ok: false, error: "Les message ne peuvent pas être vides" };
+    return { ok: false, error: "Le message ne peut pas être vide" };
   }
   if (value.length > 280) {
     return {
       ok: false,
-      error: "Les message ne peuvent pas dépasser 280 caractères",
+      error: "Le message ne peut pas dépasser 280 caractères",
     };
   }
   return { ok: true, value };
@@ -40,7 +40,7 @@ export function replyTo(message) {
     return signer("Bonjour ! Comment puis-je vous aider aujourd'hui ?");
   }
   if (texte === "aide") {
-    return signer(" En quoi puis-je vous aider ?");
+    return signer("En quoi puis-je vous aider ?");
   }
   if (texte === "test") {
     return signer("Ceci est un message de test");
