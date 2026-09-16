@@ -4,7 +4,8 @@
 
 ## Objectif
 
-l'assistant propose des solutions de metiers du numerique par rapport au parcours scolaires 
+*Une ou deux phrases : ce que l'utilisateur obtient, et pourquoi.*
+
 ## Critères d'acceptation
 
 Rédigez chaque critère sous la forme « Quand …, le système … ». Numérotez-les : les tests et les PR y feront référence.
