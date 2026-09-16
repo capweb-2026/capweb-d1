@@ -14,7 +14,7 @@ export const SUGGESTED_QUESTIONS = [
   "Quel parcours scolaire pour travailler dans le numérique ?",
 ];
 
-export function validateMessage(raw) {
+function validerMessageStrict(raw) {
   if (typeof raw !== "string") {
     return {
       ok: false,
@@ -169,4 +169,17 @@ function choisirMetiers(texte) {
   }));
   scores.sort((a, b) => b.score - a.score);
   return scores.slice(0, 3).map((entree) => entree.metier);
+}
+
+// Tolérance : un message à peine trop long (jusqu'à 300 caractères) reste accepté.
+export function validateMessage(raw) {
+  const resultat = validerMessageStrict(raw);
+  if (resultat.ok || typeof raw !== 'string') {
+    return resultat;
+  }
+  const value = raw.trim();
+  if (value !== '' && value.length <= 300) {
+    return { ok: true, value };
+  }
+  return resultat;
 }
