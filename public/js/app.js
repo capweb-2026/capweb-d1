@@ -1,4 +1,4 @@
-import { validateMessage, replyTo } from "./brain.js";
+import { validateMessage, replyTo, WELCOME_MESSAGE, SUGGESTED_QUESTIONS } from "./brain.js";
 import { renderMessages } from "./view.js";
 
 const formulaire = document.querySelector("#chat-form");
@@ -8,6 +8,25 @@ const versionElt = document.querySelector("#version");
 const champ = document.querySelector("#message");
 const liste = document.querySelector("#messages");
 const boutonEffacer = document.querySelector("#effacer");
+const accueil = document.querySelector("#accueil");
+const suggestions = document.querySelector("#suggestions");
+
+if (accueil) {
+  accueil.textContent = WELCOME_MESSAGE;
+}
+
+if (suggestions) {
+  for (const question of SUGGESTED_QUESTIONS) {
+    const bouton = document.createElement("button");
+    bouton.type = "button";
+    bouton.textContent = question;
+    bouton.addEventListener("click", () => {
+      champ.value = question;
+      champ.focus();
+    });
+    suggestions.append(bouton);
+  }
+}
 
 let historique = [];
 
