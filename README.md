@@ -1,5 +1,9 @@
 # Cap Web — le chatbot du binôme et son harnais
 
+## Adresse de production
+
+https://capweb-d1.vercel.app
+
 Ce dépôt contient votre assistant et tout ce qui l'empêche de casser : tests de contrat, contrôles, chaîne CI/CD et carte des défenses. Des agents peuvent écrire le code ; c'est vous qui décidez de ce qui entre dans `main` et de ce qui part en prod.
 
 ## Lancer en local
@@ -40,7 +44,3 @@ Chaque pull request passe par : **verifier** (les mêmes contrôles que `npm run
 - [`CARTE-DEFENSES.md`](CARTE-DEFENSES.md) : chaque connerie, sa barrière, sa preuve.
 - `SPEC.md` et `AGENTS.md` : ajoutés au checkpoint CP2.
 - `tests/contrat/` et `browser/contrat.spec.js` : le contrat fourni par le formateur. On ne les modifie pas.
-
-## Adresse de production
-
-https://capweb-d1.vercel.app/
