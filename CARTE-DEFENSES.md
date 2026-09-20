@@ -4,7 +4,7 @@ Chaque ligne dit quelle connerie est arrêtée, par quoi, et **où est la preuve
 
 | Connerie | Barrière qui l'arrête | Preuve (lien) | Checkpoint |
 |---|---|---|---|
-| Régression | Tests de contrat et CI obligatoire sur `main` | | CP1 |
+| Régression | Tests de contrat et CI obligatoire sur `main` | [PR #4 refusée](https://github.com/capweb-2026/capweb-d1/pull/4) : `validateMessage` tolérait 281 à 300 caractères, le test de contrat a rougi (`npm test`, [run rouge](https://github.com/capweb-2026/capweb-d1/actions/runs/35104686850)) | CP1 |
 | Test affaibli ou supprimé | `check:tests` (TEST-CHANGE obligatoire) et relecture | [PR #5 refusée](https://github.com/capweb-2026/capweb-d1/pull/5) : test de `tests/contrat/` transformé en tautologie (compare une valeur à elle-même) | CP2 |
 | Dépendance ajoutée | `check:deps` et `dependances-autorisees.json` | [PR #6 refusée](https://github.com/capweb-2026/capweb-d1/pull/6) : `dayjs` ajouté sans autorisation, `check:deps` rouge | CP2 |
 | Secret exposé | | | CP3 |
